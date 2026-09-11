@@ -1,0 +1,36 @@
+# Trusted Developers Configuration
+# Only commits cryptographically signed by keys listed here will pass Zero-Trust verification.
+# Never hardcode trusted keys in source code.
+
+developers:
+  - name: "Hari Prasath D"
+    email: "24mis0187@vitstudent.ac.in"
+    key_id: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIExampleKeyHariPrasathZeroTrust2026"
+    fingerprint: "SHA256:HP9876543210HariPrasathDevSecOpsVIT24MIS0187"
+    type: "ssh"
+    role: "DevSecOps Lead"
+    enabled: true
+
+  - name: "Dhanush"
+    email: "dhanush1108samu@gmail.com"
+    key_id: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvoW7uRkrBhhTbfLRj88dWYPPRfQH3IlSFW5DB3Wgym"
+    fingerprint: "SHA256:U8GD7yOp5iTQ1lABT5L6FfiAEcQbgvbdQ6kRQAX93vc"
+    type: "ssh"
+    role: "Security Architect"
+    enabled: true
+
+  - name: "CI Security Lead"
+    email: "security@zerotrust-cicd.internal"
+    key_id: "4A7B8C9D0E1F2A3B"
+    fingerprint: "4A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1D2E3F4A5B"
+    type: "gpg"
+    role: "Release Security Signer"
+    enabled: true
+
+  - name: "Test Developer (Demo)"
+    email: "demo-developer@example.com"
+    key_id: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGf8z2x1K9LpQ4mN7vR0wX8yZ3aB5cD7eF9gH1jK3mM"
+    fingerprint: "SHA256:TESTTESTTESTDEMO0123456789ABCDEF012345678"
+    type: "ssh"
+    role: "Demo Pipeline Developer"
+    enabled: true

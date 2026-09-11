@@ -1,0 +1,43 @@
+name: Secure CI/CD Pipeline with Zero-Trust Gate
+
+on:
+  push:
+    branches: [ main, master, release/* ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  zero-trust-validation:
+    name: 'Gate 0: Zero-Trust Pre-Build Security Verification'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code with Complete Git History
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full commit history required for cryptographic commit signature checking
+
+      - name: Run Zero-Trust CI/CD Validator
+        uses: ./integrations/github
+        with:
+          commit-ref: ${{ github.sha }}
+          policy-path: 'configs/policy.yaml'
+          fail-closed: 'true'
+
+  build-and-test:
+    name: 'Build Stage (Only Executes If Verification Passes)'
+    needs: zero-trust-validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build Application
+        run: |
+          echo "=========================================================="
+          echo "ZERO-TRUST GATE PASSED: BUILD IS AUTHORIZED"
+          echo "=========================================================="
+          echo "Compiling and packaging application securely..."
+
+      - name: Execute Tests
+        run: |
+          echo "Running unit and integration test suite..."

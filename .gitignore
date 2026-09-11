@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Node
+frontend/node_modules/
+node_modules/
+frontend/dist/
+dist/
+.npm
+
+# Databases & logs
+*.db
+validator.db
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

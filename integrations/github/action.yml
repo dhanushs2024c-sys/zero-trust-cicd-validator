@@ -1,0 +1,43 @@
+name: 'Zero-Trust CI/CD Pipeline Validator'
+description: 'Cryptographic commit, dependency, and runner integrity verification before build'
+author: 'Hari Prasath D & Dhanush'
+
+inputs:
+  commit-ref:
+    description: 'Git commit reference to verify'
+    required: false
+    default: 'HEAD'
+  policy-path:
+    description: 'Path to custom policy.yaml'
+    required: false
+    default: 'configs/policy.yaml'
+  fail-closed:
+    description: 'Whether to enforce strict fail-closed Zero-Trust policy'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Zero-Trust Validator Dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml cryptography GitPython psutil
+
+    - name: Execute Zero-Trust Validation Gate
+      shell: bash
+      run: |
+        echo "========================================================="
+        echo "EXECUTING ZERO-TRUST PRE-BUILD VALIDATION GATE"
+        echo "========================================================="
+        python -m validator.cli validate \
+          --commit "${{ inputs.commit-ref }}" \
+          --policy "${{ inputs.policy-path }}"
+      # If python -m validator.cli exits with code 1, GitHub Actions automatically halts here!

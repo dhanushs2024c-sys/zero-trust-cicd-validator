@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-09-11T11:14:16.301774Z",
+  "generator": "zt-validator baseline v1.0.0",
+  "project_root": "C:\\Users\\nares\\OneDrive\\Desktop\\zero_trust",
+  "monitored_paths": [
+    "configs/policy.yaml",
+    "configs/trusted_developers.yaml",
+    "validator/cli.py",
+    "backend/app/main.py",
+    "backend/app/config.py",
+    "backend/app/services/commit_verifier.py",
+    "backend/app/services/dependency_verifier.py",
+    "backend/app/services/runner_integrity.py",
+    "backend/app/services/policy_engine.py",
+    "backend/app/services/validator.py"
+  ],
+  "files": {
+    "configs/policy.yaml": "c10fa547e4829067dea907b4a68e5f8d9667d42ab337d5680a2b3cba0fb63064",
+    "configs/trusted_developers.yaml": "367770792a3c6cb6239f360d297a600d34a5b2822774adc8d9ca7706a6e92103",
+    "validator/cli.py": "3979fc9382510e927c54c3cfe4b45a62b8eafa5ed4936e6cc6d26d5b0601e9ad",
+    "backend/app/main.py": "13494419ad25a5b3e0bda93707217a3d63d03c24bc2a281b3b53d8851f2ee7b8",
+    "backend/app/config.py": "0058cc98d27ad79d9137bfbaff1c28121c10f2039e59fa0dd51fd5f541afeffc",
+    "backend/app/services/commit_verifier.py": "c2e6c4f8d36f8d613a3901978cdfa7954e0bc436e7db33622ab2280e9189f524",
+    "backend/app/services/dependency_verifier.py": "434f7c77d4454d5cc8df00dcb1ae6e6487475e1cd125c105e9493f3f551c3024",
+    "backend/app/services/runner_integrity.py": "2b0d92b68520fe27d540adefdc93e1ea34b99839f4dfa16281f9c4fda028bad5",
+    "backend/app/services/policy_engine.py": "53e15ac5053d838b88b45b1ae36f2395cf817dab0a3d1bb2bd72c41856db59ac",
+    "backend/app/services/validator.py": "bfebe07379b545ab34d4ffd300fb7393c15af1f14dcbf57d116ca11641925e93"
+  }
+}

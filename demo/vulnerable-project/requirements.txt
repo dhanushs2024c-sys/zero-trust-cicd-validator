@@ -1,0 +1,7 @@
+# Locked Python dependencies with SHA-256 integrity hashes
+urllib3==2.2.1 \
+    --hash=sha256:450b73889241eb7614d9cf422dd81f335b71cb61d9a206cb9fb08d4a6f2355bb
+requests==2.31.0 \
+    --hash=sha256:58cd2187c01e70e6e26505bca751777aa9f2f0b7f5304ac726abf254e2640301
+fastapi==0.110.0 \
+    --hash=sha256:d8a29b4e7192bc5816c87e912389104fae891234567890abcdef1234567890ab

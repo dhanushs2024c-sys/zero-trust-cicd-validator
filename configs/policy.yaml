@@ -1,0 +1,28 @@
+# Zero-Trust CI/CD Pipeline Security Policy
+# Principle: Never trust the commit, dependency, or runner environment automatically. Verify everything.
+
+policy:
+  # Commit Verification
+  require_signed_commit: true
+  require_trusted_developer: true
+  allowed_signature_types:
+    - ssh
+    - gpg
+
+  # Dependency Verification
+  require_dependency_integrity: true
+  block_unverified_dependencies: true
+  block_dependency_mismatch: true
+  allowed_hash_algorithms:
+    - sha256
+    - sha512
+
+  # Runner Integrity Verification
+  require_runner_integrity: true
+  runner_severity_threshold: "WARNING"  # Options: WARNING (blocks on WARNING or TAMPERED), TAMPERED (blocks only on TAMPERED)
+  check_environment_variables: true
+  check_processes: true
+  check_path_anomalies: true
+
+  # Fail-Closed Behavior
+  fail_closed: true  # If any check cannot be completed or errors occur, default to BLOCK BUILD

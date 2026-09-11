@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  zt-validator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zero-trust-cicd-validator
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ZT_CONFIG_DIR=/app/configs
+      - ZT_DB_PATH=/app/data/validator.db
+      - ZT_LOG_DIR=/app/logs
+    volumes:
+      - ./configs:/app/configs
+      - ./logs:/app/logs
+      - zt_data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  zt_data:
+    driver: local

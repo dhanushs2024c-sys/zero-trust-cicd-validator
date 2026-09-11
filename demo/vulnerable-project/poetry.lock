@@ -1,0 +1,24 @@
+# Demo poetry.lock with locked hashes
+[[package]]
+name = "cryptography"
+version = "42.0.5"
+description = "cryptography is a package which provides cryptographic recipes and primitives"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
+name = "pydantic"
+version = "2.6.4"
+description = "Data validation using Python type hints"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[metadata.files]
+cryptography = [
+    {file = "cryptography-42.0.5-cp37-abi3-win_amd64.whl", hash = "sha256:d8a29b4e7192bc5816c87e912389104fae891234567890abcdef1234567890ab"}
+]
+pydantic = [
+    {file = "pydantic-2.6.4-py3-none-any.whl", hash = "sha256:7b91c2e4f5a8901234567890abcdef1234567890abcdef1234567890abcdef12"}
+]

@@ -1,0 +1,68 @@
+// Zero-Trust CI/CD Pipeline Validator Jenkinsfile
+// Enforces cryptographic verification before the build stage can execute.
+
+pipeline {
+    agent any
+
+    environment {
+        ZT_CONFIG_DIR = "${WORKSPACE}/configs"
+        PYTHONUNBUFFERED = "1"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Zero-Trust Security Validation Gate') {
+            steps {
+                echo '========================================================='
+                echo 'STAGE 1: VERIFYING COMMIT, DEPENDENCIES & RUNNER'
+                echo '========================================================='
+                script {
+                    // Execute validator CLI
+                    // Exit code 0 -> Pipeline continues to Build stage
+                    // Exit code 1 -> Build blocked, pipeline aborted
+                    sh '''
+                        python3 -m pip install -q pyyaml cryptography GitPython psutil
+                        python3 -m validator.cli validate --path "${WORKSPACE}"
+                    '''
+                }
+            }
+        }
+
+        stage('Build') {
+            // This stage only executes if the Zero-Trust Validation stage exits with code 0
+            steps {
+                echo '========================================================='
+                echo 'STAGE 2: BUILD AUTHORIZED BY ZERO-TRUST POLICY'
+                echo '========================================================='
+                sh '''
+                    echo "Building binaries in cryptographically verified runner environment..."
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh '''
+                    echo "Executing automated test suite..."
+                '''
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo '========================================================='
+            echo 'PIPELINE ABORTED: ZERO-TRUST SECURITY VIOLATION'
+            echo '========================================================='
+            echo 'Build halted before compiling untrusted or tampered artifacts.'
+        }
+        success {
+            echo 'Pipeline successfully passed Zero-Trust verification and completed build.'
+        }
+    }
+}
