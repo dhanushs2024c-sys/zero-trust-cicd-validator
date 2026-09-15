@@ -1,13 +1,10 @@
-// Zero-Trust CI/CD Pipeline Validator
-// Windows Jenkins Pipeline
-// Security validation MUST pass before the build can continue.
-
 pipeline {
     agent any
 
     environment {
         ZT_CONFIG_DIR = "${WORKSPACE}\\configs"
         PYTHONUNBUFFERED = "1"
+        PYTHON = "C:\\Users\\nares\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
     }
 
     stages {
@@ -34,8 +31,8 @@ pipeline {
                 echo 'Applying security policy...'
 
                 bat '''
-                    python -m pip install -q pyyaml cryptography GitPython psutil
-                    python -m validator.cli validate --path "%WORKSPACE%"
+                    "%PYTHON%" -m pip install -q -r backend\\requirements.txt
+                    "%PYTHON%" -m validator.cli validate --path "%WORKSPACE%"
                 '''
 
                 echo '========================================================='
@@ -66,7 +63,7 @@ pipeline {
 
                 bat '''
                     echo Executing automated test suite...
-                    python -m pytest backend\\tests
+                    "%PYTHON%" -m pytest backend\\tests
                 '''
             }
         }
