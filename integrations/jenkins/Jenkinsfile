@@ -1,17 +1,23 @@
-// Zero-Trust CI/CD Pipeline Validator Jenkinsfile
-// Enforces cryptographic verification before the build stage can execute.
+// Zero-Trust CI/CD Pipeline Validator
+// Windows Jenkins Pipeline
+// Security validation MUST pass before the build can continue.
 
 pipeline {
     agent any
 
     environment {
-        ZT_CONFIG_DIR = "${WORKSPACE}/configs"
+        ZT_CONFIG_DIR = "${WORKSPACE}\\configs"
         PYTHONUNBUFFERED = "1"
     }
 
     stages {
+
         stage('Checkout') {
             steps {
+                echo '========================================================='
+                echo 'CHECKING OUT SOURCE CODE'
+                echo '========================================================='
+
                 checkout scm
             }
         }
@@ -19,50 +25,68 @@ pipeline {
         stage('Zero-Trust Security Validation Gate') {
             steps {
                 echo '========================================================='
-                echo 'STAGE 1: VERIFYING COMMIT, DEPENDENCIES & RUNNER'
+                echo 'ZERO-TRUST SECURITY VALIDATION GATE'
                 echo '========================================================='
-                script {
-                    // Execute validator CLI
-                    // Exit code 0 -> Pipeline continues to Build stage
-                    // Exit code 1 -> Build blocked, pipeline aborted
-                    sh '''
-                        python3 -m pip install -q pyyaml cryptography GitPython psutil
-                        python3 -m validator.cli validate --path "${WORKSPACE}"
-                    '''
-                }
+
+                echo 'Verifying commit signature...'
+                echo 'Verifying dependency integrity...'
+                echo 'Verifying runner integrity...'
+                echo 'Applying security policy...'
+
+                bat '''
+                    python -m pip install -q pyyaml cryptography GitPython psutil
+                    python -m validator.cli validate --path "%WORKSPACE%"
+                '''
+
+                echo '========================================================='
+                echo 'ZERO-TRUST VALIDATION PASSED'
+                echo 'BUILD AUTHORIZED'
+                echo '========================================================='
             }
         }
 
         stage('Build') {
-            // This stage only executes if the Zero-Trust Validation stage exits with code 0
             steps {
                 echo '========================================================='
-                echo 'STAGE 2: BUILD AUTHORIZED BY ZERO-TRUST POLICY'
+                echo 'BUILD STAGE'
+                echo 'AUTHORIZED BY ZERO-TRUST POLICY'
                 echo '========================================================='
-                sh '''
-                    echo "Building binaries in cryptographically verified runner environment..."
+
+                bat '''
+                    echo Building in cryptographically verified environment...
                 '''
             }
         }
 
         stage('Test') {
             steps {
-                sh '''
-                    echo "Executing automated test suite..."
+                echo '========================================================='
+                echo 'TEST STAGE'
+                echo '========================================================='
+
+                bat '''
+                    echo Executing automated test suite...
+                    python -m pytest backend\\tests
                 '''
             }
         }
     }
 
     post {
+        success {
+            echo '========================================================='
+            echo 'PIPELINE SUCCESS'
+            echo 'ZERO-TRUST VERIFICATION PASSED'
+            echo 'BUILD AND TEST COMPLETED'
+            echo '========================================================='
+        }
+
         failure {
             echo '========================================================='
-            echo 'PIPELINE ABORTED: ZERO-TRUST SECURITY VIOLATION'
+            echo 'PIPELINE BLOCKED / FAILED'
+            echo 'ZERO-TRUST SECURITY GATE FAILED'
+            echo 'UNTRUSTED OR TAMPERED ENVIRONMENT WAS NOT ALLOWED'
             echo '========================================================='
-            echo 'Build halted before compiling untrusted or tampered artifacts.'
-        }
-        success {
-            echo 'Pipeline successfully passed Zero-Trust verification and completed build.'
         }
     }
 }

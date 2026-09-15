@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2026-09-11T11:14:16.301774Z",
+  "generated_at": "2026-09-15T12:39:16.507523Z",
   "generator": "zt-validator baseline v1.0.0",
   "project_root": "C:\\Users\\nares\\OneDrive\\Desktop\\zero_trust",
   "monitored_paths": [
@@ -17,7 +17,7 @@
   ],
   "files": {
     "configs/policy.yaml": "c10fa547e4829067dea907b4a68e5f8d9667d42ab337d5680a2b3cba0fb63064",
-    "configs/trusted_developers.yaml": "367770792a3c6cb6239f360d297a600d34a5b2822774adc8d9ca7706a6e92103",
+    "configs/trusted_developers.yaml": "6ee11247e9329fb8b4bd94d7dc6333dbf92b9125f6d412a58c4c7c857dfe6830",
     "validator/cli.py": "3979fc9382510e927c54c3cfe4b45a62b8eafa5ed4936e6cc6d26d5b0601e9ad",
     "backend/app/main.py": "13494419ad25a5b3e0bda93707217a3d63d03c24bc2a281b3b53d8851f2ee7b8",
     "backend/app/config.py": "0058cc98d27ad79d9137bfbaff1c28121c10f2039e59fa0dd51fd5f541afeffc",
