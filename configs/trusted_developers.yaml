@@ -13,8 +13,8 @@ developers:
 
   - name: "Dhanush"
     email: "dhanush1108samu@gmail.com"
-    key_id: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEvoW7uRkrBhhTbfLRj88dWYPPRfQH3IlSFW5DB3Wgym"
-    fingerprint: "SHA256:U8GD7yOp5iTQ1lABT5L6FfiAEcQbgvbdQ6kRQAX93vc"
+    key_id: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWaUn2WskN9ktvPYOzbj84vdvP4iTdEWFFimltFPWdx"
+    fingerprint: "SHA256:+v37786i9UpYgkSYEJ5/P1Zj4Kle9C9rkM6SUaVxTDE"
     type: "ssh"
     role: "Security Architect"
     enabled: true
